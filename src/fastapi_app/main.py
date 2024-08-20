@@ -7,12 +7,15 @@ from fastapi.staticfiles import StaticFiles
 
 from .dependencies import get_db
 from .meta import meta
+from .middlewares import cors
 from .routers import items, users
 
 app = FastAPI(
     **meta.meta_info,
     dependencies=[Depends(get_db)],
 )
+
+cors.add_cors_middleware(app)
 
 app.mount("/public", StaticFiles(directory="public"), name="static")
 

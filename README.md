@@ -53,9 +53,9 @@ After that, you can run the server itself using the `dev` script:
 rye run dev
 ```
 
-The default port utilized for this template is 5173. So once you see the
+The default port utilized for this template is 8000. So once you see the
 fastapi-cli's output, indicating successful startup of the server, you can
-simply navigate in your browser to localhost:5173/docs to see the OpenAPI
+simply navigate in your browser to localhost:8000/docs to see the OpenAPI
 documentation of the app.
 
 ### About The App
@@ -107,12 +107,12 @@ and [MS-SQL](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).
 FastAPI provides for use of static files very easily. To serve static files,
 place them in the `public` folder. The server is set up to serve any static
 files placed here by default. To view them in your browser, simply enter the url
-<em>localhost:5173/public/<b>name_of_your_file.jpg</b></em> and you should see
+<em>localhost:8000/public/<b>name_of_your_file.jpg</b></em> and you should see
 your file displayed there.
 
 Provided with this template is a sample jpeg of a cherry you can view from your
 browser while the server is running. Simply visit
-<em>localhost:5173/public/cherry.jpeg</em>
+<em>localhost:8000/public/cherry.jpeg</em>
 
 Should you wish to know more about static files in FastAPI, please see their
 [tutorial on the subject](https://fastapi.tiangolo.com/tutorial/static-files/).
