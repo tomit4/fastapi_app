@@ -27,3 +27,17 @@ tags_metadata = [
         },
     },
 ]
+
+meta_info = {
+    "contact": {
+        "name": "John Doe",
+        "url": "https://example.com",
+        "email": "johndoe@example.com",
+    },
+    "description": description,
+    "openapi_tags": tags_metadata,
+    "summary": "A Generic App",
+    "terms_of_service": "https://example.com/terms/",
+    "title": "App",
+    "version": "0.0.1",
+}

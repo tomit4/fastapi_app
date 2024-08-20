@@ -10,18 +10,8 @@ from .meta import meta
 from .routers import items, users
 
 app = FastAPI(
-    contact={
-        "name": "John Doe",
-        "url": "https://example.com",
-        "email": "johndoe@example.com",
-    },
+    **meta.meta_info,
     dependencies=[Depends(get_db)],
-    description=meta.description,
-    openapi_tags=meta.tags_metadata,
-    summary="A Generic App",
-    terms_of_service="https://example.com/terms/",
-    title="App",
-    version="0.0.1",
 )
 
 app.mount("/public", StaticFiles(directory="public"), name="static")
