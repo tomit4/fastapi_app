@@ -93,7 +93,7 @@ Should you find yourself ready to build/publish your application, please consult
 Rye's Official Documentation on
 [Building and Publishing](https://rye.astral.sh/guide/publish/).
 
-**SQLAlchemy**
+**SQLAlchemy and Alembic**
 
 This App template uses the [SQLAlchemy ORM](https://www.sqlalchemy.org/), and
 thusly can utilize any of the classic SQL databases including [SQLite](),
@@ -101,6 +101,25 @@ thusly can utilize any of the classic SQL databases including [SQLite](),
 [MariaDB](https://mariadb.org/),
 [Oracle](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Introduction-to-Oracle-SQL.html),
 and [MS-SQL](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).
+
+This version of the App template simply establishes an `app.db` file in the root
+of your project folder. You can establish the initial database using the
+[Alembic](https://alembic.sqlalchemy.org/en/latest/) migration tool:
+
+```sh
+alembic upgrade head
+```
+
+Should you need to downgrade the migration, you can simply invoke `alembic` like
+so:
+
+```sh
+alembic downgrade -1
+```
+
+Which will downgrade alembic by exactly 1 migration. You can find all migration
+scripts within the `migrations` directory within the root of the projec
+directory located at the root of the project.
 
 **Static Files**
 
@@ -134,35 +153,35 @@ rye test
 This project utilizes some additional editor tooling for use with python. These
 include:
 
-- [black](https://black.readthedocs.io/en/stable/index.html)
-- [isort](https://pycqa.github.io/isort/)
-- [pyright](https://github.com/microsoft/pyright)
+- [black (code formatter)](https://black.readthedocs.io/en/stable/index.html)
+- [isort (dependency organizer)](https://pycqa.github.io/isort/)
+- [pyright (python linter)](https://github.com/microsoft/pyright)
 
 You can install the [VSCode](https://code.visualstudio.com/) extensions via your
 editor or you can download them directly from the
 [Visual Studio Marketplace](https://marketplace.visualstudio.com/):
 
-- [black](https://marketplace.visualstudio.com/items?itemName=mikoz.black-py)
-- [isort](https://marketplace.visualstudio.com/items?itemName=ms-python.isort)
-- [pyright](https://marketplace.visualstudio.com/items?itemName=ms-pyright.pyright)
+- [VSCode black](https://marketplace.visualstudio.com/items?itemName=mikoz.black-py)
+- [VSCode isort](https://marketplace.visualstudio.com/items?itemName=ms-python.isort)
+- [VSCode pyright](https://marketplace.visualstudio.com/items?itemName=ms-pyright.pyright)
 
 Additionally, the Neovim equivalents can be downloaded directly, downloaded
 using a extensions tool like
 [Mason](https://github.com/williamboman/mason.nvim):
 
-- [black](https://github.com/averms/black-nvim)
-- [isort](https://github.com/stsewd/isort.nvim)
-- [pyright](https://www.andersevenrud.net/neovim.github.io/lsp/configurations/pyright/)
+- [NeoVim black](https://github.com/averms/black-nvim)
+- [NeoVim isort](https://github.com/stsewd/isort.nvim)
+- [NeoVim pyright](https://www.andersevenrud.net/neovim.github.io/lsp/configurations/pyright/)
 
-I personally use [Neovim](https://neovim.io/) and an all in one formatter,
-[conform](https://github.com/stevearc/conform.nvim).
+I personally use [NeoVim](https://neovim.io/) and an all in one formatter,
+[conform](https://github.com/stevearc/conform.nvim). I did, however, download
+pyright using Mason.
 
 ## Conclusion
 
 This is the most organized workflow I've found using FastAPI (or any Python
 project for that matter). There are more features I plan on adding to this
-template like the [Alembic](https://alembic.sqlalchemy.org/en/latest/) database
-migration tool, as well as templates for working with
+template like working with
 [OAuth2 and JWT tokens](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/).
 This repository is mainly meant for my own personal use for scaffolding off of
 into future projects, but perhaps you, dear reader, might also find it useful.
