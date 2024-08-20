@@ -10,7 +10,8 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 # NOTE: Importation of DB models must occur AFTER declaration of Base.
-from .models.item import Item
-from .models.user import User
+# NOTE: No longer necessary after using alembic migrations
+#  from .models.item import Item
+#  from .models.user import User
 
-Base.metadata.create_all(bind=engine)
+#  Base.metadata.create_all(bind=engine)
