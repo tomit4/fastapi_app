@@ -47,7 +47,15 @@ need to instantiate your virtual environment like so:
 source .venv/bin/activate
 ```
 
-After that, you can run the server itself using the `dev` script:
+You'll need to migrate the database so that the essential tables are
+established. You can do this with alembic:
+
+```sh
+alembic upgrade head
+```
+
+After you've migrated the database, you can then run the server itself using the
+`dev` script:
 
 ```sh
 rye run dev
