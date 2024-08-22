@@ -17,7 +17,7 @@ app = FastAPI(
 
 cors.add_cors_middleware(app)
 
-app.mount("/public", StaticFiles(directory="public"), name="static")
+app.mount("/public", StaticFiles(directory="src/fastapi_app/public"), name="static")
 
 load_dotenv()
 HOST = os.environ.get("HOST") or "::"

@@ -1,6 +1,8 @@
+import os
 from logging.config import fileConfig
 
 from alembic import context
+from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 
 from fastapi_app.database import Base, engine
@@ -9,6 +11,19 @@ from fastapi_app.models import *
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+load_dotenv()
+PG_HOST = os.environ.get("PG_HOST") or "127.0.0.1"
+PG_PORT = int(str(os.environ.get("PG_PORT"))) or 5432
+PG_USER = os.environ.get("PG_USER") or "admin"
+PG_PASS = os.environ.get("PG_PASS") or "postgres"
+PG_DB = os.environ.get("PG_DB") or "app_db"
+SQLALCHEMY_DATABASE_URL = (
+    f"postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG_PORT}/{PG_DB}"
+)
+# NOTE: Set PostgreSQL DB, overrides alembic.ini
+# NOTE: Comment out if using SQLite
+# PostgreSQL Configuration
+config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
