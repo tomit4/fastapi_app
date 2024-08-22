@@ -15,3 +15,5 @@ wheels/
 *.vim
 # sqlite databases
 *.db
+# loggers
+logs/
