@@ -226,6 +226,12 @@ your changes to the database by indicationg numerically how many you'd like to
 go back). You can find all migration scripts within the `migrations` directory
 within the root of the projec directory located at the root of the project.
 
+Should you need to add new tables you can generate a new migration script:
+
+```sh
+alembic revision --autogenerate -m "Added users table"
+```
+
 **Static Files**
 
 FastAPI provides for use of static files very easily. To serve static files,
