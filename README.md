@@ -10,6 +10,7 @@ This repository contains a bare bones starter template for a backend using
 To use this as a basic template for future projects, you'll first need to have
 [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git),
 [python](https://www.python.org/downloads/),
+[docker](https://docs.docker.com/engine/install/), and
 [rye](https://rye.astral.sh/guide/installation/) installed.
 
 You'll also probably want to have a basic familiarity with the command line
@@ -101,7 +102,7 @@ Should you find yourself ready to build/publish your application, please consult
 Rye's Official Documentation on
 [Building and Publishing](https://rye.astral.sh/guide/publish/).
 
-**SQLAlchemy and Alembic**
+**SQLAlchemy And Setting Up The Database**
 
 This App template uses the [SQLAlchemy ORM](https://www.sqlalchemy.org/), and
 thusly can utilize any of the classic SQL databases including [SQLite](),
@@ -110,36 +111,133 @@ thusly can utilize any of the classic SQL databases including [SQLite](),
 [Oracle](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Introduction-to-Oracle-SQL.html),
 and [MS-SQL](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).
 
-This version of the App template simply establishes an `app.db` file in the root
-of your project folder. You can establish the initial database using the
-[Alembic](https://alembic.sqlalchemy.org/en/latest/) migration tool:
+**Instantiating PostgreSQL Via Docker**
+
+This version of the App template gives you the option of utilizing either SQLite
+or PostgreSQL databases (and uses an in memory SQLite DB in testing). Depending
+on which DB you want to use, you'll need to adjust a few settings. By default,
+the App uses a PostgreSQL database within a [Docker](https://www.docker.com/)
+container (setup using [docker compose](https://docs.docker.com/compose/)).
+
+To initialize the database, you simply have to fill out the appropriate Database
+URI fields within your `.env` file:
+
+```
+# Postgres Config
+PG_HOST="127.0.0.1"
+PG_PORT=5936
+DB_PORT=5432
+PG_USER="admin"
+PG_DB="app_db"
+PG_CONTAINER_NAME="app_db"
+PG_PASS="postgres"
+```
+
+If you are just working in development and have port 5936 available on your
+development machine, you can leave these fields the same (but I advise that
+should you push your application to production that you adjust these default
+settings).
+
+Once your `.env` variables are set up, you can use `docker compose` to
+instantiate your docker images/containers:
+
+```sh
+docker compose -f ./docker-compose.yml up -d
+```
+
+You can check the status of your docker containers to ensure they are running
+like so:
+
+```sh
+docker container ls -a
+```
+
+Once you are sure your docker containers are running you can then use
+[Alembic](https://alembic.sqlalchemy.org/en/latest/) to migrate your initial
+tables into the database.
+
+**Using SQLite Instead**
+
+Should you wish to use the more straight forward database, SQLite, you can
+forego the previous docker related section. You will need to change three
+configuration fields in order to get it working however.
+
+Firstly, we'll have to change our FastAPI server's configuration to look at a
+different Database URI. This can be done within our src/fastapi_app/database.py
+file. Firstly, comment out all the PostgreSQL configurations:
+
+```py
+# database.py
+# PostgreSQL Configuration
+# SQLALCHEMY_DATABASE_URL = (
+#     f"postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG_PORT}/{PG_DB}"
+# )
+# engine = create_engine(SQLALCHEMY_DATABASE_URL)
+```
+
+And then uncomment the SQLite Configuration:
+
+```py
+SQLALCHEMY_DATABASE_URL = "sqlite:///./app.db"
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
+```
+
+Next you'll need to uncomment the `sqlalchemy.url` in the `alembic.ini` file
+(located at the root of the project directory):
+
+```ini
+# SQLite Configuration
+sqlalchemy.url = sqlite:///./app.db
+```
+
+And lastly, you'll need to comment out the `config.set_main_option()`
+configuration in the `migrations/env.py` file:
+
+```py
+# PostgreSQL Configuration
+# config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
+```
+
+Once these configuration settings have been adjusted, you can then use
+[Alembic](https://alembic.sqlalchemy.org/en/latest/) to migrate your initial
+tables into the database.
+
+**Using Alembic To Set Up Your Initial Tables**
+
+You can initialize your first database migration by first invoking `alembic`
+with the `upgrade head` command:
 
 ```sh
 alembic upgrade head
 ```
 
-Should you need to downgrade the migration, you can simply invoke `alembic` like
-so:
+Should you need to downgrade the migration (roll back your previous changes to
+the database), you can simply invoke `alembic` with the `downgrade -1`
+command/flag:
 
 ```sh
 alembic downgrade -1
 ```
 
-Which will downgrade alembic by exactly 1 migration. You can find all migration
-scripts within the `migrations` directory within the root of the projec
-directory located at the root of the project.
+Which will downgrade alembic by exactly 1 migration (you can further revert back
+your changes to the database by indicationg numerically how many you'd like to
+go back). You can find all migration scripts within the `migrations` directory
+within the root of the projec directory located at the root of the project.
 
 **Static Files**
 
 FastAPI provides for use of static files very easily. To serve static files,
-place them in the `public` folder. The server is set up to serve any static
-files placed here by default. To view them in your browser, simply enter the url
+place them in the `src/fastapi_app/public` folder. The server is set up to serve
+any static files placed here by default. To view them in your browser, simply
+enter the url
 <em>localhost:8000/public/<b>name_of_your_file.jpg</b></em> and you should see
 your file displayed there.
 
-Provided with this template is a sample jpeg of a cherry you can view from your
-browser while the server is running. Simply visit
-<em>localhost:8000/public/cherry.jpeg</em>
+Provided with this template is a sample jpeg of the FastAPI Logo you can view
+from your browser while the server is running. Simply visit
+<em>localhost:8000/public/fastapi-logo.png</em>
 
 Should you wish to know more about static files in FastAPI, please see their
 [tutorial on the subject](https://fastapi.tiangolo.com/tutorial/static-files/).
