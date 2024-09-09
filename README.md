@@ -111,6 +111,14 @@ thusly can utilize any of the classic SQL databases including [SQLite](),
 [Oracle](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Introduction-to-Oracle-SQL.html),
 and [MS-SQL](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).
 
+**A Note on AsyncIO**:
+
+This App template sets up SQLAlchemy to work with PostgreSQL
+<em>asynchronously</em>. The configuratioin is based off of
+[This Handy Tutorial](https://medium.com/@tclaitken/setting-up-a-fastapi-app-with-async-sqlalchemy-2-0-pydantic-v2-e6c540be4308)
+as well as
+[This Article](https://praciano.com.br/fastapi-and-async-sqlalchemy-20-with-pytest-done-right.html).
+
 **Instantiating PostgreSQL Via Docker**
 
 This version of the App template gives you the option of utilizing either SQLite
@@ -153,54 +161,6 @@ docker container ls -a
 ```
 
 Once you are sure your docker containers are running you can then use
-[Alembic](https://alembic.sqlalchemy.org/en/latest/) to migrate your initial
-tables into the database.
-
-**Using SQLite Instead**
-
-Should you wish to use the more straight forward database, SQLite, you can
-forego the previous docker related section. You will need to change three
-configuration fields in order to get it working however.
-
-Firstly, we'll have to change our FastAPI server's configuration to look at a
-different Database URI. This can be done within our src/fastapi_app/database.py
-file. Firstly, comment out all the PostgreSQL configurations:
-
-```py
-# database.py
-# PostgreSQL Configuration
-# SQLALCHEMY_DATABASE_URL = (
-#     f"postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG_PORT}/{PG_DB}"
-# )
-# engine = create_engine(SQLALCHEMY_DATABASE_URL)
-```
-
-And then uncomment the SQLite Configuration:
-
-```py
-SQLALCHEMY_DATABASE_URL = "sqlite:///./app.db"
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
-```
-
-Next you'll need to uncomment the `sqlalchemy.url` in the `alembic.ini` file
-(located at the root of the project directory):
-
-```ini
-# SQLite Configuration
-sqlalchemy.url = sqlite:///./app.db
-```
-
-And lastly, you'll need to comment out the `config.set_main_option()`
-configuration in the `migrations/env.py` file:
-
-```py
-# PostgreSQL Configuration
-# config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
-```
-
-Once these configuration settings have been adjusted, you can then use
 [Alembic](https://alembic.sqlalchemy.org/en/latest/) to migrate your initial
 tables into the database.
 

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-from .item import Item
+#  from .item import Item
 
 
 class UserBase(BaseModel):
@@ -12,8 +12,8 @@ class UserCreate(UserBase):
 
 
 class User(UserBase):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     is_active: bool
-    items: list[Item] = []
-
-    model_config = ConfigDict(from_attributes=True)
+    #  items: list[Item] = []

@@ -1,5 +1,5 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..database import Base
 
@@ -7,9 +7,9 @@ from ..database import Base
 class Item(Base):
     __tablename__ = "items"
 
-    id = Column(Integer, primary_key=True)
-    title = Column(String, index=True)
-    description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    id: Mapped[int] = mapped_column(primary_key=True)
+    title: Mapped[str] = mapped_column(index=True)
+    description: Mapped[str] = mapped_column(index=True)
+    owner_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="items")
