@@ -58,7 +58,7 @@ established. You can do this with a custom `rye` script that uses `alembic`
 under the hood:
 
 ```sh
-rye run upgrade
+rye run upgrade head
 ```
 
 After you've migrated the database, you can then run the server itself using the
@@ -180,7 +180,7 @@ You can initialize your first database migration by utilizing a prepared
 [pyproject.toml](./pyproject.toml) file):
 
 ```sh
-rye run upgrade
+rye run upgrade head
 ```
 
 Or you can invoke `alembic` directly like so:
@@ -193,7 +193,7 @@ Should you need to downgrade the migration (roll back your previous changes to
 the database), you can use a similar `downgrade` script:
 
 ```sh
-rye run downgrade
+rye run downgrade -1
 ```
 
 Or you can invoke `alembic` directly like so:
@@ -205,11 +205,17 @@ alembic --config ./src/fastapi_app/alembic.ini downgrade -1
 Which will downgrade alembic by exactly 1 migration (you can further revert back
 your changes to the database by repeatedly invoking this script, or invoking
 `alembic` directly as shown above and simply adjust the negative number at the
-end of the script).
+end).
 
 You can find all migration scripts within the `src/fastapi_app/migrations`
 directory. Should you need to add new tables you can generate a new migration
 script:
+
+```sh
+rye run generate "Added users table"
+```
+
+Or you can invoke it directly like so:
 
 ```sh
 alembic --config ./src/fastapi_app/alembic.ini revision --autogenerate -m "Added users table"

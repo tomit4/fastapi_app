@@ -38,8 +38,9 @@ packages = ["src/fastapi_app"]
 
 [tool.rye.scripts]
 dev = "uvicorn fastapi_app.main:app --host :: --port 8000 --reload"
-upgrade = "alembic --config ./src/fastapi_app/alembic.ini upgrade head"
-downgrade = "alembic --config ./src/fastapi_app/alembic.ini downgrade -1"
+upgrade = "alembic --config ./src/fastapi_app/alembic.ini upgrade"
+downgrade = "alembic --config ./src/fastapi_app/alembic.ini downgrade"
+generate = "alembic --config ./src/fastapi_app/alembic.ini revision --autogenerate -m"
 
 [project.scripts]
 start = "fastapi_app.main:main"
