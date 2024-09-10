@@ -54,10 +54,11 @@ source .venv/bin/activate
 ```
 
 You'll need to migrate the database so that the essential tables are
-established. You can do this with alembic:
+established. You can do this with a custom `rye` script that uses `alembic`
+under the hood:
 
 ```sh
-alembic upgrade head
+rye run upgrade
 ```
 
 After you've migrated the database, you can then run the server itself using the
