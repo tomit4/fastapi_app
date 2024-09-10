@@ -1,11 +1,11 @@
-# FastAPI App
-
 <div align="center">
     <img
+    style="scale: 0.7; margin-bottom: -3em;"
     src="https://raw.githubusercontent.com/tomit4/fastapi_app/main/src/fastapi_app/public/fastapi-logo.webp">
+<h1 style="border: none">FastAPI App</h1>
 </div>
 
-## Introduction
+<h2 style="border: none">Introduction</h2>
 
 This repository contains a bare bones starter template for a backend using
 [FastAPI](https://fastapi.tiangolo.com/)
@@ -271,7 +271,7 @@ I personally use [NeoVim](https://neovim.io/) and an all in one formatter,
 [conform](https://github.com/stevearc/conform.nvim). I did, however, download
 pyright using Mason.
 
-## Conclusion
+<h2 style="border: none;">Conclusion</h2>
 
 This is the most organized workflow I've found using FastAPI (or any Python
 project for that matter). There are more features I plan on adding to this
