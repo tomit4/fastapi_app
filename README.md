@@ -2,7 +2,7 @@
 
 <div align="center">
     <img
-    src="https://github.com/tomit4/fastapi_app/src/fastapi_app/public/fastapi-logo.webp">
+    src="https://raw.githubusercontent.com/tomit4/fastapi_app/main/src/fastapi_app/public/fastapi-logo.webp">
 </div>
 
 ## Introduction
