@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-#  from .item import Item
+from .item import Item
 
 
 class UserBase(BaseModel):
@@ -16,4 +16,4 @@ class User(UserBase):
 
     id: int
     is_active: bool
-    #  items: list[Item] = []
+    items: list[Item] = []
