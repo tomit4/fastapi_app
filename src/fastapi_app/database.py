@@ -59,7 +59,7 @@ PG_HOST = os.environ.get("PG_HOST") or "localhost"
 PG_PORT = int(str(os.environ.get("PG_PORT"))) or 5432
 PG_USER = os.environ.get("PG_USER") or "admin"
 PG_PASS = os.environ.get("PG_PASS") or "postgres"
-PG_DB = os.environ.get("PG_DB") or "phlint_db"
+PG_DB = os.environ.get("PG_DB") or "app_db"
 
 # PostgreSQL Configuration
 SQLALCHEMY_DATABASE_URL = (
