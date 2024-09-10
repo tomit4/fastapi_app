@@ -1,5 +1,10 @@
 # FastAPI App
 
+<div align="center">
+    <img
+    src="https://github.com/tomit4/fastapi_app/src/fastapi_app/public/fastapi-logo.webp">
+</div>
+
 ## Introduction
 
 This repository contains a bare bones starter template for a backend using
@@ -218,9 +223,9 @@ enter the url
 <em>localhost:8000/public/<b>name_of_your_file.jpg</b></em> and you should see
 your file displayed there.
 
-Provided with this template is a sample jpeg of the FastAPI Logo you can view
+Provided with this template is a sample webp of the FastAPI Logo you can view
 from your browser while the server is running. Simply visit
-<em>localhost:8000/public/fastapi-logo.png</em>
+<em>localhost:8000/public/fastapi-logo.webp</em>
 
 Should you wish to know more about static files in FastAPI, please see their
 [tutorial on the subject](https://fastapi.tiangolo.com/tutorial/static-files/).
