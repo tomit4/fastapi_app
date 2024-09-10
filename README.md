@@ -211,7 +211,7 @@ directory. Should you need to add new tables you can generate a new migration
 script:
 
 ```sh
-alembic revision --autogenerate -m "Added users table"
+alembic --config ./src/fastapi_app/alembic.ini revision --autogenerate -m "Added users table"
 ```
 
 **Static Files**
