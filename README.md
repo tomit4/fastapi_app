@@ -119,7 +119,7 @@ and [MS-SQL](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).
 **A Note on AsyncIO**:
 
 This App template sets up SQLAlchemy to work with PostgreSQL
-<em>asynchronously</em>. The configuratioin is based off of
+<em>asynchronously</em>. The configuration is based off of
 [This Handy Tutorial](https://medium.com/@tclaitken/setting-up-a-fastapi-app-with-async-sqlalchemy-2-0-pydantic-v2-e6c540be4308)
 as well as
 [This Article](https://praciano.com.br/fastapi-and-async-sqlalchemy-20-with-pytest-done-right.html).
