@@ -10,14 +10,15 @@ from .database import sessionmanager
 from .dependencies import get_db_session
 from .meta import meta
 from .middlewares import cors
-from .routers import users
+from .routers import items, users
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
     Function that handles startup and shutdown events.
-    To understand more, read https://fastapi.tiangolo.com/advanced/events/
+    To understand more, read:
+    https://fastapi.tiangolo.com/advanced/events/
     """
     yield
     if sessionmanager._engine is not None:
@@ -40,7 +41,7 @@ HOST = os.environ.get("HOST") or "::"
 PORT = int(str(os.environ.get("PORT"))) or 8000
 
 app.include_router(users.router)
-#  app.include_router(items.router)
+app.include_router(items.router)
 
 
 def main():

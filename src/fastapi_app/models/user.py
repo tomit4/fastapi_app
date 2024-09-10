@@ -11,4 +11,4 @@ class User(Base):
     hashed_password: Mapped[str]
     is_active: Mapped[bool] = mapped_column(default=True)
 
-    #  items = relationship("Item", back_populates="owner")
+    items = relationship("Item", back_populates="owner")
