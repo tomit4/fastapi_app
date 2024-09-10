@@ -119,6 +119,9 @@ This App template sets up SQLAlchemy to work with PostgreSQL
 as well as
 [This Article](https://praciano.com.br/fastapi-and-async-sqlalchemy-20-with-pytest-done-right.html).
 
+You can also further read more about async usage in SQLAlchemy
+[here](https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html).
+
 **Instantiating PostgreSQL Via Docker**
 
 This version of the App template gives you the option of utilizing either SQLite
@@ -166,27 +169,41 @@ tables into the database.
 
 **Using Alembic To Set Up Your Initial Tables**
 
-You can initialize your first database migration by first invoking `alembic`
-with the `upgrade head` command:
+You can initialize your first database migration by utilizing a prepared
+`upgrade` script (if you want to see how they work, take a look at the
+[pyproject.toml](./pyproject.toml) file):
 
 ```sh
-alembic upgrade head
+rye run upgrade
+```
+
+Or you can invoke `alembic` directly like so:
+
+```sh
+alembic --config ./src/fastapi_app/alembic.ini upgrade head
 ```
 
 Should you need to downgrade the migration (roll back your previous changes to
-the database), you can simply invoke `alembic` with the `downgrade -1`
-command/flag:
+the database), you can use a similar `downgrade` script:
 
 ```sh
-alembic downgrade -1
+rye run downgrade
+```
+
+Or you can invoke `alembic` directly like so:
+
+```sh
+alembic --config ./src/fastapi_app/alembic.ini downgrade -1
 ```
 
 Which will downgrade alembic by exactly 1 migration (you can further revert back
-your changes to the database by indicationg numerically how many you'd like to
-go back). You can find all migration scripts within the `migrations` directory
-within the root of the projec directory located at the root of the project.
+your changes to the database by repeatedly invoking this script, or invoking
+`alembic` directly as shown above and simply adjust the negative number at the
+end of the script).
 
-Should you need to add new tables you can generate a new migration script:
+You can find all migration scripts within the `src/fastapi_app/migrations`
+directory. Should you need to add new tables you can generate a new migration
+script:
 
 ```sh
 alembic revision --autogenerate -m "Added users table"
