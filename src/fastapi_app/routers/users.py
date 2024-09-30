@@ -7,13 +7,8 @@ from ..dependencies import get_db_session
 from ..middlewares.logger import TimedRoute
 from ..schemas.item import Item, ItemCreate
 from ..schemas.user import User, UserCreate
-from ..services.user_service import (
-    create_user,
-    create_user_item,
-    get_user,
-    get_user_by_email,
-    get_users,
-)
+from ..services.user_service import (create_user, create_user_item, get_user,
+                                     get_user_by_email, get_users)
 
 router = APIRouter(prefix="/users", tags=["users"], route_class=TimedRoute)
 
